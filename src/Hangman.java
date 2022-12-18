@@ -20,23 +20,37 @@ public class Hangman {
             if (attempts > 0) {
                 System.out.print(hint + "\nInput a letter: ");
                 String guessedWord = scanner.next();
-                letters.add(guessedWord);
-                attempts--;
+                if (guessedWord.length() > 1){
+                    System.out.println("You should input a single letter");
+                    continue;
+                }
+                if (!guessedWord.matches("[a-z]")){
+                    System.out.println("Please enter a lowercase English letter\n");
+                    continue;
+                }
                 if (word.contains(guessedWord)) {
-                    for (int i = 0; i < word.length(); i++) {
-                        if (hide[i] == guessedWord.charAt(0)) {
-                            hint.setCharAt(i, guessedWord.charAt(0));
+                    if (letters.contains(guessedWord)){
+                        System.out.println("No improvements\n ");
+
+                    } else {
+                        for (int i = 0; i < word.length(); i++) {
+                            if (hide[i] == guessedWord.charAt(0)) {
+                                hint.setCharAt(i, guessedWord.charAt(0));
+                            }
                         }
                     }
-                    if (guessedWord.equals(word)) {
-                        System.out.println("Thanks for playing!\nWe'll see how well you did in the next stage");
+                    if (hint.toString().equals(word)) {
+                        System.out.println("You guessed the word " + hint + "!");
+                        System.out.println("You survived!");
                         break;
                     }
                 }else {
-                    System.out.println("That letter doesn't appear in the word");
+                    System.out.println("That letter doesn't appear in the word\n ");
+                    attempts--;
                 }
+                letters.add(guessedWord);
             } else {
-                System.out.println("Thanks for playing!\nWe'll see how well you did in the next stage");
+                System.out.println("You've already guessed this letter\nYou lost!");
                 break;
             }
         }
