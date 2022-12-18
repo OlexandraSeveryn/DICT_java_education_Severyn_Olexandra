@@ -3,6 +3,19 @@ import java.util.*;
 public class Hangman {
     public static void main(String[] args) {
         System.out.println("HANGMAN");
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Type \"play\" to play the game, \"exit\" to quit: ");
+            String choice = scanner.next();
+            if (choice.equals("play")) {
+                gameMenu();
+            } else if (choice.equals("exit")) {
+                System.out.println("Bye!");
+                break;
+            }
+        }
+    }
+    public static void gameMenu(){
         String[] guessingWords = {"javascript", "java", "python", "kotlin"};
         Scanner scanner = new Scanner(System.in);
         Random randWord = new Random();
